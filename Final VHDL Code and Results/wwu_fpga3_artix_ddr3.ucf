@@ -1,0 +1,241 @@
+# File:  wwu_fpga3_artix_ddr3.ucf
+#
+# ISE constraints file for WWU FPGA3 board with QMTECH Artix-7 FPGA module
+#   Uses a Xilinx XC7A100T in a FTG676 package with ddr3 memory
+#
+#    The pound symbol indicates a comment line.  All lines initially are
+#    commented out.  Delete the leading pound symbol from those signals
+#    that will be used in a design
+#
+#    Ports that can connect to internal global clock lines have the global
+#    clock number listed in square brackets.
+#
+# last modified by L.Aamodt  4-05-2020
+#-----------------------------------------------------------------------------
+#
+#-----------------------------------------------------------------------------
+#      Switches and LEDs on the QMTECH board
+#         (note: pressing qm_sw1 reloads FPGA configuration from PROM)
+#-----------------------------------------------------------------------------
+#
+# NET "qm_sw2" LOC = "H19" | IOSTANDARD=LVCMOS33;
+#
+# NET "qm_led5" LOC = "J19" | IOSTANDARD=LVCMOS33;
+#
+#-----------------------------------------------------------------------------
+#      50MHz "master" clock
+#-----------------------------------------------------------------------------
+# 
+NET "mclk" LOC = "U22" | IOSTANDARD=LVCMOS33;  # [MRCC13]
+#
+#-----------------------------------------------------------------------------
+#      FPGA3 board signals and associated ports
+#-----------------------------------------------------------------------------
+#
+#       ___ Signal name, to be used in a VHDL entity or as schematic net name
+#      |              ___ FPGA pin number
+#      |             |        ___ QMTECH board pin numbers
+#      |             |       |
+#      V             V       V
+#
+#NET "sma"   LOC = "L2"  | IOSTANDARD=LVCMOS33;  #u2-35 [SRCC_34] (SMA connector)
+#
+#    NOTE:  sw0 to sw8 are toggle switches.
+#
+#NET "sw<0>" LOC = "T3"  | IOSTANDARD=LVCMOS33;  #u2-49
+#NET "sw<1>" LOC = "M5"  | IOSTANDARD=LVCMOS33;  #u2-47
+#NET "sw<2>" LOC = "H9"  | IOSTANDARD=LVCMOS33;  #u2-34
+#NET "sw<3>" LOC = "G9"  | IOSTANDARD=LVCMOS33;  #u2-33
+#NET "sw<4>" LOC = "H2"  | IOSTANDARD=LVCMOS33;  #u2-32
+#NET "sw<5>" LOC = "H1"  | IOSTANDARD=LVCMOS33;  #u2-31
+#NET "sw<6>" LOC = "J4"  | IOSTANDARD=LVCMOS33;  #u2-30 [AD7P]
+#NET "sw<7>" LOC = "H4"  | IOSTANDARD=LVCMOS33;  #u2-29 [AD7N]
+#NET "sw<8>" LOC = "P1"    | IOSTANDARD=LVCMOS33;	 #u2-55
+#
+#    NOTE: Buttons (btn) are momentary push buttons
+#          Pressing a button = logic '0'
+#              not pressing  = logic '1'
+#          On the circuit board, btns are labeled sw9 to sw14    
+#    CAUTION:  in VHDL, use sw8 or btn14 but not both in the same VHDL
+#              entity because they refer to the same physical pin.
+#
+NET "sw<9>" LOC = "R1" | IOSTANDARD=LVCMOS33;  #u2-56  sw9 
+NET "sw<10>" LOC = "R2" | IOSTANDARD=LVCMOS33;  #u2-57  sw10
+NET "sw<11>" LOC = "T2" | IOSTANDARD=LVCMOS33;  #u2-58  sw11
+NET "sw<12>" LOC = "U1" | IOSTANDARD=LVCMOS33;  #u2-59  sw12
+#NET "sw<13>" LOC = "U2" | IOSTANDARD=LVCMOS33;  #u2-60  sw13
+#NET "sw<14>"  LOC = "P1" | IOSTANDARD=LVCMOS33;  #u2-55  sw14
+#
+#    NOTE:  logic '1' turns an LED on
+#           logic '0' turns an LED off
+#
+NET "led<0>" LOC = "P23" | IOSTANDARD=LVCMOS33;  #u4-40
+NET "led<1>" LOC = "P24" | IOSTANDARD=LVCMOS33;  #u4-39
+NET "led<2>" LOC = "N21" | IOSTANDARD=LVCMOS33;  #u4-38 [MRCC_14]
+NET "led<3>" LOC = "N22" | IOSTANDARD=LVCMOS33;  #u4-37 [MRCC_14]
+NET "led<4>" LOC = "M24" | IOSTANDARD=LVCMOS33;  #u4-36
+NET "led<5>" LOC = "M25" | IOSTANDARD=LVCMOS33;  #u4-35
+NET "led<6>" LOC = "R26" | IOSTANDARD=LVCMOS33;  #u4-34
+NET "led<7>" LOC = "P26" | IOSTANDARD=LVCMOS33;  #u4-33
+NET "led<8>" LOC = "L22" | IOSTANDARD=LVCMOS33;  #u4-32 [SRCC_14]
+NET "led<9>" LOC = "L23" | IOSTANDARD=LVCMOS33;  #u4-31 [SRCC_14]
+NET "led<10>" LOC = "K5" | IOSTANDARD=LVCMOS33;  #u2-39
+NET "led<11>" LOC = "N2" | IOSTANDARD=LVCMOS33;  #u2-38 [MRCC_34]
+NET "led<12>" LOC = "N3" | IOSTANDARD=LVCMOS33;  #u2-37 [MRCC_34]
+NET "led<13>" LOC = "M2" | IOSTANDARD=LVCMOS33;  #u2-36 [SRCC_34]
+NET "led<14>" LOC = "G4" | IOSTANDARD=LVCMOS33;  #u2-26 [SRCC_35]
+NET "led<15>" LOC = "F4" | IOSTANDARD=LVCMOS33;  #u2-25 [SRCC_35]
+#
+#    NOTE:  Pulldowns force inputs to logic zero when nothing is connected
+#
+#NET "extin<0>" LOC = "B2" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-14
+#NET "extin<0>" CLOCK_DEDICATED_ROUTE = FALSE; 					#Special clock override
+#NET "extin<1>" LOC = "C2" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-13
+#NET "extin<2>" LOC = "A3" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-12
+#NET "extin<3>" LOC = "A2" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-11
+#NET "extin<4>" LOC = "B4" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-10
+#NET "extin<5>" LOC = "A4" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-9
+#NET "extin<6>" LOC = "B5" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-8
+#NET "extin<7>" LOC = "A5" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-7
+#NET "extin<8>" LOC = "G1" | PULLDOWN | IOSTANDARD=LVCMOS33;	#u2-27
+#
+#    NOTE: Logic 1 creates high voltage out (3.3v)
+#          Logic 0 creates low voltage out
+#
+NET "extout<0>" LOC = "F2" | IOSTANDARD=LVCMOS33; #u2-24
+NET "extout<1>" LOC = "E2" | IOSTANDARD=LVCMOS33; #u2-23
+NET "extout<2>" LOC = "E1" | IOSTANDARD=LVCMOS33; #u2-22
+NET "extout<3>" LOC = "D1" | IOSTANDARD=LVCMOS33; #u2-21
+NET "extout<4>" LOC = "C1" | IOSTANDARD=LVCMOS33; #u2-20
+NET "extout<5>" LOC = "B1" | IOSTANDARD=LVCMOS33; #u2-19
+NET "extout<6>" LOC = "E5" | IOSTANDARD=LVCMOS33; #u2-18  [MRCC_35]
+NET "extout<7>" LOC = "D5" | IOSTANDARD=LVCMOS33; #u2-17  [MRCC_35]
+#NET "extout<8>" LOC = "C4" | IOSTANDARD=LVCMOS33; #u2-16  [RRCC_35]
+#
+#-----------------------------------------------------------------------------
+#     4-digit 7-segment display
+#-----------------------------------------------------------------------------
+#    NOTE: setting an anode to logic '0' turns that digit on
+#                         
+NET "anode<0>" LOC = "T4" | IOSTANDARD=LVCMOS33; #u2-50  left hand digit
+NET "anode<1>" LOC = "P5" | IOSTANDARD=LVCMOS33; #u2-51 
+NET "anode<2>" LOC = "P6" | IOSTANDARD=LVCMOS33; #u2-52 
+NET "anode<3>" LOC = "M1" | IOSTANDARD=LVCMOS33; #u2-53  right hand digit
+NET "anode<4>" LOC = "N1" | IOSTANDARD=LVCMOS33; #u2-54  colon leds
+#
+#    NOTE: setting a cathode to logic '0' turns that segment on
+#
+NET "cath<0>" LOC = "L5" | IOSTANDARD=LVCMOS33;  #u2-40  seg a
+NET "cath<1>" LOC = "L4" | IOSTANDARD=LVCMOS33;  #u2-41  seg b
+NET "cath<2>" LOC = "M4" | IOSTANDARD=LVCMOS33;  #u2-42  seg c
+NET "cath<3>" LOC = "P3" | IOSTANDARD=LVCMOS33;  #u2-43  seg d  [MRCC_34]
+NET "cath<4>" LOC = "R3" | IOSTANDARD=LVCMOS33;  #u2-44  seg e  [MRCC_34]
+NET "cath<5>" LOC = "J1" | IOSTANDARD=LVCMOS33;  #u2-45  seg f
+NET "cath<6>" LOC = "K1" | IOSTANDARD=LVCMOS33;  #u2-46  seg g
+NET "cath<7>" LOC = "M6" | IOSTANDARD=LVCMOS33;  #u2-48  decimal point
+#
+#-----------------------------------------------------------------------------
+#     I/O ports intended for connection to a Tektronix logic analyzer
+#-----------------------------------------------------------------------------
+#
+#    NOTE: tek1, tek2, tek3, and tek4 are 8-bit ports intended for
+#          connection to a Tektronix logic analyzer probe cable.
+#
+#NET "tek1<0>" LOC = "F23" | IOSTANDARD=LVCMOS33;  #u4-14
+#NET "tek1<1>" LOC = "E23" | IOSTANDARD=LVCMOS33;  #u4-13
+#NET "tek1<2>" LOC = "H26" | IOSTANDARD=LVCMOS33;  #u4-12
+#NET "tek1<3>" LOC = "G26" | IOSTANDARD=LVCMOS33;  #u4-11
+#NET "tek1<4>" LOC = "E25" | IOSTANDARD=LVCMOS33;  #u4-10
+#NET "tek1<5>" LOC = "D25" | IOSTANDARD=LVCMOS33;  #u4-9
+#NET "tek1<6>" LOC = "E26" | IOSTANDARD=LVCMOS33;  #u4-8
+#NET "tek1<7>" LOC = "D26" | IOSTANDARD=LVCMOS33;  #u4-7
+#
+#NET "tek2<0>" LOC = "H21" | IOSTANDARD=LVCMOS33;  #u4-22 [MRCC_15]
+#NET "tek2<1>" LOC = "H22" | IOSTANDARD=LVCMOS33;  #u4-21 [MRCC_15]
+#NET "tek2<2>" LOC = "G20" | IOSTANDARD=LVCMOS33;  #u4-20 [SRCC_15]
+#NET "tek2<3>" LOC = "G21" | IOSTANDARD=LVCMOS33;  #u4-19 [SRCC_15]
+#NET "tek2<4>" LOC = "J25" | IOSTANDARD=LVCMOS33;  #u4-18
+#NET "tek2<5>" LOC = "J26" | IOSTANDARD=LVCMOS33;  #u4-17
+#NET "tek2<6>" LOC = "G22" | IOSTANDARD=LVCMOS33;  #u4-16
+#NET "tek2<7>" LOC = "F22" | IOSTANDARD=LVCMOS33;  #u4-15
+#
+#NET "tek3<0>" LOC = "N26" | IOSTANDARD=LVCMOS33;  #u4-30
+#NET "tek3<1>" LOC = "M26" | IOSTANDARD=LVCMOS33;  #u4-29
+#NET "tek3<2>" LOC = "K22" | IOSTANDARD=LVCMOS33;  #u4-28
+#NET "tek3<3>" LOC = "K23" | IOSTANDARD=LVCMOS33;  #U4-27
+#NET "tek3<4>" LOC = "K25" | IOSTANDARD=LVCMOS33;  #u4-26
+#NET "tek3<5>" LOC = "K26" | IOSTANDARD=LVCMOS33;  #u4-25
+#NET "tek3<6>" LOC = "K21" | IOSTANDARD=LVCMOS33;  #U4-24 [MRCC_15]
+#NET "tek3<7>" LOC = "J21" | IOSTANDARD=LVCMOS33;  #u4-23 [MRCC_15]
+#
+#NET "tek4<0>" LOC = "V23" | IOSTANDARD=LVCMOS33;  #u4-48
+#NET "tek4<1>" LOC = "W23" | IOSTANDARD=LVCMOS33;  #u4-47
+#NET "tek4<2>" LOC = "U21" | IOSTANDARD=LVCMOS33;  #u4-46 [MRCC_13]
+#NET "tek4<3>" LOC = "V21" | IOSTANDARD=LVCMOS33;  #u4-45 [MRCC_13]
+#NET "tek4<4>" LOC = "T24" | IOSTANDARD=LVCMOS33;  #u4-44
+#NET "tek4<5>" LOC = "T25" | IOSTANDARD=LVCMOS33;  #u4-43
+#NET "tek4<6>" LOC = "R25" | IOSTANDARD=LVCMOS33;  #u4-42
+#NET "tek4<7>" LOC = "P25" | IOSTANDARD=LVCMOS33;  #u4-41
+#
+#NET "tek5"    LOC = "D4" | IOSTANDARD=LVCMOS33;  #u2-15  [SRCC_35]
+#NET "tek6"    LOC = "G2" | IOSTANDARD=LVCMOS33;  #u2-28
+#
+#-----------------------------------------------------------------------------
+#     Connections for PMOD (Digilent) I/O modules
+#-----------------------------------------------------------------------------
+#
+#NET "pmod1<1>" LOC = "Y21"  | IOSTANDARD=LVCMOS33; #u4-53 [SRCC_13]
+#NET "pmod1<2>" LOC = "W21"  | IOSTANDARD=LVCMOS33; #u4-54 [SRCC_13]
+#NET "pmod1<3>" LOC = "AC24" | IOSTANDARD=LVCMOS33; #u4-55
+#NET "pmod1<4>" LOC = "AB24" | IOSTANDARD=LVCMOS33; #u4-56
+#NET "pmod1<5>" LOC = "Y26"  | IOSTANDARD=LVCMOS33; #u4-57
+#NET "pmod1<6>" LOC = "W25"  | IOSTANDARD=LVCMOS33; #u4-58
+#NET "pmod1<7>" LOC = "AC26" | IOSTANDARD=LVCMOS33; #u4-59
+#NET "pmod1<8>" LOC = "AB26" | IOSTANDARD=LVCMOS33; #u4-60
+#
+#NET "pmod2<1>" LOC = "Y23" | IOSTANDARD=LVCMOS33; #u4-49 [SRCC_13]
+#NET "pmod2<2>" LOC = "Y22" | IOSTANDARD=LVCMOS33; #u4-50 [SRCC_13]
+#NET "pmod2<3>" LOC = "AA25"| IOSTANDARD=LVCMOS33; #u4-51
+#NET "pmod2<4>" LOC = "Y25" | IOSTANDARD=LVCMOS33; #u4-52
+#
+#    NOTE: PMOD3 is an alias for TEK3 and PMOD4 is an alias for TEK4
+#
+#        If in VHDL you are using tek3 signal names then leave
+#        the pmod3 signal names commented out and vic-versa.
+#        They refer to the same physical pin.
+#        Also, note that the pmod signal numbering starts at 1 rather 
+#        than at 0 to be compatible with Digilent PMOD documentation.
+#
+#NET "pmod3<1>" LOC = "N26" | IOSTANDARD=LVCMOS33; #u4-30 
+#NET "pmod3<2>" LOC = "M26" | IOSTANDARD=LVCMOS33; #u4-29
+#NET "pmod3<3>" LOC = "K22" | IOSTANDARD=LVCMOS33; #u4-28
+#NET "pmod3<4>" LOC = "K23" | IOSTANDARD=LVCMOS33; #u4-27
+#NET "pmod3<5>" LOC = "K25" | IOSTANDARD=LVCMOS33; #u4-26
+#NET "pmod3<6>" LOC = "K26" | IOSTANDARD=LVCMOS33; #u4-25 [MRCC_15]
+#NET "pmod3<7>" LOC = "K21" | IOSTANDARD=LVCMOS33; #u4-24 [MRCC_15]
+#NET "pmod3<8>" LOC = "J21" | IOSTANDARD=LVCMOS33; #u4-23 [MRCC_15]
+#
+#    NOTE: PMOD4 is an alias for TEK4
+#
+#NET "pmod4<1>" LOC = "V23" | IOSTANDARD=LVCMOS33; #u4-48
+#NET "pmod4<2>" LOC = "W23" | IOSTANDARD=LVCMOS33; #u4-47
+#NET "pmod4<3>" LOC = "U21" | IOSTANDARD=LVCMOS33; #u4-46 [MRCC_13]
+#NET "pmod4<4>" LOC = "V21" | IOSTANDARD=LVCMOS33; #u4-45 [MRCC_13]
+#NET "pmod4<5>" LOC = "T24" | IOSTANDARD=LVCMOS33; #u4-44
+#NET "pmod4<6>" LOC = "T25" | IOSTANDARD=LVCMOS33; #u4-43
+#NET "pmod4<7>" LOC = "R25" | IOSTANDARD=LVCMOS33; #u4-42
+#NET "pmod4<8>" LOC = "P25" | IOSTANDARD=LVCMOS33; #u4-41
+#
+#-----------------------------------------------------------------------------
+#      Time specifications for 50MHz clock
+#-----------------------------------------------------------------------------
+#
+#TIMESPEC TS01 = FROM : FFS : TO : FFS : 20 ns;
+#TIMESPEC TS02 = FROM : RAMS : TO : FFS : 20 ns;
+#TIMESPEC TS03 = FROM : FFS : TO : RAMS : 20 ns;
+#TIMESPEC TS04 = FROM : RAMS : TO : RAMS : 20 ns;
+#TIMESPEC TS05 = FROM : FFS : TO : PADS : 20 ns; 
+#TIMESPEC TS06 = FROM : PADS : TO : FFS : 20 ns; 
+#TIMESPEC TS07 = FROM : PADS : TO : RAMS : 20 ns; 
+#TIMESPEC TS08 = FROM : RAMS : TO : PADS : 20 ns;
+#
